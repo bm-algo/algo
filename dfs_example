@@ -18,6 +18,7 @@ void bfs(int table[][]){
  		int dx[] = {1, -1, 0, 0};
  		int dy[] = {0, 0, 1, -1};
  		for (int i=0;i<4;i++){
+ 			проверяем выход за границы таблицы
  			if (!visited[head.x+dx[i]][head.y+dy[i]]){ // если клетка не посещена
  				q.push(new Point(head.x+dx[i], head.y+dy[i])); // добавить в очередь на посещение
  	 		}
@@ -27,7 +28,7 @@ void bfs(int table[][]){
 		int dx[] = {-1, 0, 1};
   		for (int i=0;i<3;i++){
  	  		for (int j=0;j<3;j++){
- 
+ 				проверяем выход за границы таблицы
  		  		if (!visited[head.x+dx[i]][head.y+dy[j]] && !(i==1 && j==1 )){ // если клетка не посещена и это не текущая клетка - смещение по  x и y нет
  			  		q.push(new Point(head.x+dx[i], head.y+dx[j])); // добавить в очередь на посещение
  	 	  		}
