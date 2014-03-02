@@ -45,26 +45,21 @@ from utils import get_cut_vertexes
 
 
 def my_algo(array):
-    # creating grapth from given magnetic pillows - triangle index is key and pro   
+    # creating grapth from given magnetic pillows 
     vertexes = {}
-    for pillow in array:
-        pillow = sorted(pillow)
-        for pillow_point in pillow:
-            other_points = set([p for p in pillow if p != pillow_point])
-            if pillow_point in vertexes:
-                vertexes[pillow_point] |= other_points
-            else:
-                vertexes[pillow_point] = other_points
-    # getting bridges:
-    cut_vertexes = get_cut_vertexes(vertexes)
-    solo_vertexes = [k for k, v in vertexes.items() if len(v) == 2]
-
-    result = set()
     for index, pillow in enumerate(array):
-        for pillow_point in pillow:
-            if pillow_point in cut_vertexes + solo_vertexes:
-                result.add(index)
-    return [r + 1 for r in result]
+        pillow_additional_vertex = 100000 + index
+        vertexes[pillow_additional_vertex] = set(pillow)
+        for p in pillow:
+            if p in vertexes:
+                vertexes[p] |= set([pillow_additional_vertex])
+            else:
+                vertexes[p] = set([pillow_additional_vertex])
+
+    cut_vertexes = get_cut_vertexes(vertexes)
+
+    return [v - 100000 + 1 for v in cut_vertexes if v >= 100000]
+       
 
 
 # examples:
